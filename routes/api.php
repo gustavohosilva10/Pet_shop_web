@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 //ESSA ROTA PRECISA FICAR FORA DA MIDDLEWARE PORQUE O LOGIN NÃO ENVIA UM TOKEN
 Route::post('login','Api\AuthController@login');
+Route::post('register', 'Api\AuthController@register');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('logout','Api\AuthController@logout');
