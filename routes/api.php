@@ -8,6 +8,17 @@ Route::post('login','Api\AuthController@login');
 Route::post('register', 'Api\AuthController@register');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
+    //LOGIN
     Route::post('logout','Api\AuthController@logout');
     Route::get('refresh','Api\AuthController@refresh');
+    //
+
+    //COMPLETA REGISTRO USUARIO
+    Route::get('index/address', 'Api\CompleteRegisterUserController@index');
+    Route::post('store/address', 'Api\CompleteRegisterUserController@store');
+    Route::get('show/{id}/address', 'Api\CompleteRegisterUserController@show');
+    Route::patch('update/{id}/address', 'Api\CompleteRegisterUserController@update');
+    //
+
 });
+
