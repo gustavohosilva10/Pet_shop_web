@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\CompleteRegisteUser;
-use Illuminate\Support\Facades\Storage;
-use File;
-use DB;
 
 class CompleteRegisterUserController extends Controller
 {
@@ -38,13 +35,13 @@ class CompleteRegisterUserController extends Controller
                     File::makeDirectory('storage/profile-picture/'.$request->input('id_user'));
                 }
 
-                $extension = $request->anexo_chamado->getClientOriginalExtension();
+                $extension = $request->profile_picture->getClientOriginalExtension();
                 $name = time().'.' . $extension;
                 $picture = $request->file('profile_picture');
                 $picture->storeAs('profile-picture/'.$request->input('id_user'), $name);
 
             }    
-            $complete_user->anexo_chamado = $nome;
+            $complete_user->profile_picture = $nome;
             $complete_user->save();
 
             if ($complete_user) {

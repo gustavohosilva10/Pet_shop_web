@@ -31,6 +31,6 @@ class CompleteRegisterUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gssac_setores_vinculados');
+        Schema::dropIfExists('complete_register_user');
     }
 }

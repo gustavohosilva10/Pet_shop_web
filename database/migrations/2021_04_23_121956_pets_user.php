@@ -13,7 +13,17 @@ class PetsUser extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('pets_user', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name_pet')->nullable();
+            $table->string('age')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('breed')->nullable();
+            $table->string('sex_pet')->nullable();
+            $table->longText('pet_picture')->nullable();
+            $table->integer('id_user')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +33,6 @@ class PetsUser extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('pets_user');
     }
 }
