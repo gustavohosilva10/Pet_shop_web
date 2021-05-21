@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\CompleteRegisteUser;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\CreateCompleteRegisterUserRequest;
 use File;
 use DB;
 
@@ -21,15 +22,12 @@ class CompleteRegisterUserController extends Controller
         }
     }
 
-    public function store(Request $request){
+    public function saveProfilePicture(Request $request)
+    {
         try {
-          
+            
             $complete_user = new CompleteRegisteUser();
-            $complete_user->address = $request->input('address');
-            $complete_user->telephone = $request->input('telephone');
-            $complete_user->cellphone = $request->input('cellphone');
-            $complete_user->id_user = $request->input('id_user');
-       
+
             if ($request->file('profile_picture') === null) {
                 $nome = "";
             }else{
@@ -38,15 +36,27 @@ class CompleteRegisterUserController extends Controller
                     File::makeDirectory('storage/profile-picture/'.$request->input('id_user'));
                 }
 
-                $extension = $request->anexo_chamado->getClientOriginalExtension();
+                $extension = $request->profile_picture->getClientOriginalExtension();
                 $name = time().'.' . $extension;
                 $picture = $request->file('profile_picture');
                 $picture->storeAs('profile-picture/'.$request->input('id_user'), $name);
 
             }    
-            $complete_user->anexo_chamado = $nome;
+            
+            $complete_user->profile_picture = $nome;
             $complete_user->save();
 
+        } catch (\Throwable $th) {
+            Log::error($th);
+            throw $th;
+        }
+    }
+
+    public function store(CreateCompleteRegisterUserRequest $request){
+        try {
+          
+            $complete_user = CompleteRegisteUser::create($request->validated())];
+       
             if ($complete_user) {
                 return response()->json([ 
                     'gravou' => true,
