@@ -32,14 +32,14 @@ class CompleteRegisterUserController extends Controller
                 $nome = "";
             }else{
             
-                if (!File::isDirectory('storage/profile-picture/'.$request->input('id_user'))) {
-                    File::makeDirectory('storage/profile-picture/'.$request->input('id_user'));
+                if (!File::isDirectory('storage/profile-picture/10')) {
+                    File::makeDirectory('storage/profile-picture/10');
                 }
 
                 $extension = $request->profile_picture->getClientOriginalExtension();
                 $name = time().'.' . $extension;
                 $picture = $request->file('profile_picture');
-                $picture->storeAs('profile-picture/'.$request->input('id_user'), $name);
+                $picture->storeAs('profile-picture/10', $name);
 
             }    
             
