@@ -13,6 +13,7 @@ class CompleteRegisteUser extends Model
         'telephone',
         'cellphone',
         'profile_picture',
+        'cep_user'
         'id_user'
     ];
 }

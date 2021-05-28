@@ -52,10 +52,10 @@ class CompleteRegisterUserController extends Controller
         }
     }
 
-    public function store(CreateCompleteRegisterUserRequest $request){
+    public function store(Request $request){
         try {
-          
-            $complete_user = CompleteRegisteUser::create($request->validated())];
+         
+            $complete_user = CompleteRegisteUser::create($request->all());
        
             if ($complete_user) {
                 return response()->json([ 
