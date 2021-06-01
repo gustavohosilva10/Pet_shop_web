@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use App\CompleteRegisteUser;
+use App\CompletRegisterUser;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\CreateCompleteRegisterUserRequest;
 use File;
@@ -15,7 +15,7 @@ class CompleteRegisterUserController extends Controller
     public function index()
     {
         try {
-            return CompleteRegisteUser::all();
+            return CompletRegisterUser::all();
         } catch (\Throwable $th) {
             Log::error($th);
             throw $th;
@@ -26,7 +26,7 @@ class CompleteRegisterUserController extends Controller
     {
         try {
             
-            $complete_user = new CompleteRegisteUser();
+            $complete_user = new CompletRegisterUser();
 
             if ($request->file('profile_picture') === null) {
                 $nome = "";
@@ -54,18 +54,15 @@ class CompleteRegisterUserController extends Controller
 
     public function store(Request $request){
         try {
-         
-            $complete_user = CompleteRegisteUser::create($request->all());
-       
-            if ($complete_user) {
-                return response()->json([ 
-                    'gravou' => true,
-                ]);
-            } else {
-                return response()->json([
-                    'gravou' => false,
-                ]);
-            }
+            
+            $complete_user = new CompletRegisterUser();
+            $complete_user->address = $request->input('address'); 
+            $complete_user->telephone = $request->input('telephone');
+            $complete_user->cellphone = $request->input('cellphone');
+            $complete_user->id_user = auth()->user()->id;
+            $complete_user->cep_user = $request->input('cep_user');
+            $complete_user->save();
+
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -73,7 +70,7 @@ class CompleteRegisterUserController extends Controller
 
     public function show($id){
         try {
-            $complete_user = CompleteRegisteUser::findOrFail($id);
+            $complete_user = CompletRegisterUser::findOrFail($id);
 
             if (isset($complete_user)) {
                 return response()->json($complete_user);

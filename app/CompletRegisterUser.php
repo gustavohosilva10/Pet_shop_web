@@ -1,10 +1,10 @@
 <?php
 
 namespace App;
-use DB;
+
 use Illuminate\Database\Eloquent\Model;
 
-class CompleteRegisteUser extends Model
+class CompletRegisterUser extends Model
 {
     protected $table = 'complete_register_user';
 
@@ -13,7 +13,7 @@ class CompleteRegisteUser extends Model
         'telephone',
         'cellphone',
         'profile_picture',
-        'cep_user'
+        'cep_user',
         'id_user'
     ];
 }

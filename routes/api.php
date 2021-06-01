@@ -14,6 +14,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     //
 
     //COMPLETA REGISTRO USUARIO
+    
     Route::get('index/address', 'Api\CompleteRegisterUserController@index');
     Route::post('store/address', 'Api\CompleteRegisterUserController@store');
     Route::get('show/{id}/address', 'Api\CompleteRegisterUserController@show');
