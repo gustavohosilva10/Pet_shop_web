@@ -25,25 +25,31 @@ class CompleteRegisterUserController extends Controller
     public function saveProfilePicture(Request $request)
     {
         try {
-            
-            $complete_user = new CompletRegisterUser();
+            $id_user = auth()->user()->id;
+         /*    $complete_user = new CompletRegisterUser();
 
             if ($request->file('profile_picture') === null) {
                 $nome = "";
             }else{
             
-                if (!File::isDirectory('storage/profile-picture/10')) {
-                    File::makeDirectory('storage/profile-picture/10');
+                if (!File::isDirectory('storage/PerfilUsuarios/profile-picture'.$id_user)) {
+                    File::makeDirectory('storage/PerfilUsuarios/profile-picture'.$id_user);
                 }
 
                 $extension = $request->profile_picture->getClientOriginalExtension();
                 $name = time().'.' . $extension;
                 $picture = $request->file('profile_picture');
-                $picture->storeAs('profile-picture/10', $name);
+                $picture->storeAs('profile-picture', $name);
 
             }    
             
             $complete_user->profile_picture = $nome;
+            $complete_user->save(); */
+
+            $path = $request->file('profile_picture')->store('PerfilUsuarios', 'public');
+            dd($path);
+            $complete_user = new CompletRegisterUser();
+            $complete_user->profile_picture = $path;
             $complete_user->save();
 
         } catch (\Throwable $th) {
