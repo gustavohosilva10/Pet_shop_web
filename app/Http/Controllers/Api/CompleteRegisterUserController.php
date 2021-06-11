@@ -26,7 +26,7 @@ class CompleteRegisterUserController extends Controller
     {
         try {
             $id_user = auth()->user()->id;
-         /*    $complete_user = new CompletRegisterUser();
+            $complete_user = new CompletRegisterUser();
 
             if ($request->file('profile_picture') === null) {
                 $nome = "";
@@ -44,12 +44,6 @@ class CompleteRegisterUserController extends Controller
             }    
             
             $complete_user->profile_picture = $nome;
-            $complete_user->save(); */
-
-            $path = $request->file('profile_picture')->store('PerfilUsuarios', 'public');
-            dd($path);
-            $complete_user = new CompletRegisterUser();
-            $complete_user->profile_picture = $path;
             $complete_user->save();
 
         } catch (\Throwable $th) {
