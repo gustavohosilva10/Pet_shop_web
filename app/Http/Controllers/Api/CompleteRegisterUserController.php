@@ -39,7 +39,7 @@ class CompleteRegisterUserController extends Controller
                 $extension = $request->profile_picture->getClientOriginalExtension();
                 $name = time().'.' . $extension;
                 $picture = $request->file('profile_picture');
-                $picture->storeAs('profile-picture', $name);
+                $picture->storeAs('profile_picture', $name);
 
             }    
             
