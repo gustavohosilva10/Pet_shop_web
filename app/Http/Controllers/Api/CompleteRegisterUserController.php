@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\CompletRegisterUser;
-use Illuminate\Support\Facades\Storage;
+use App\ProfilePicture;
 use App\Http\Requests\CreateCompleteRegisterUserRequest;
-use File;
 use DB;
-
+use Illuminate\Support\Facades\Storage;
+use File;
 class CompleteRegisterUserController extends Controller
 {
     public function index()
@@ -26,24 +26,23 @@ class CompleteRegisterUserController extends Controller
     {
         try {
             $id_user = auth()->user()->id;
-            $complete_user = new CompletRegisterUser();
-
-            if ($request->file('profile_picture') === null) {
-                $nome = "";
+            $complete_user = new ProfilePicture();
+            if ($request->file('image') == null) {
+                $name = "";
             }else{
             
-                if (!File::isDirectory('storage/PerfilUsuarios/profile-picture'.$id_user)) {
-                    File::makeDirectory('storage/PerfilUsuarios/profile-picture'.$id_user);
+                if (!File::isDirectory('storage/PerfilUsuarios/'.$id_user)) {
+                    File::makeDirectory('storage/PerfilUsuarios/'.$id_user);
                 }
 
-                $extension = $request->profile_picture->getClientOriginalExtension();
+                $extension = $request->image->getClientOriginalExtension();
                 $name = time().'.' . $extension;
-                $picture = $request->file('profile_picture');
-                $picture->storeAs('profile_picture', $name);
+                $picture = $request->file('image');
+                $picture->storeAs('PerfilUsuarios/'.$id_user, $name);
 
             }    
-            
-            $complete_user->profile_picture = $nome;
+            $complete_user->image = $name;
+            $complete_user->id_profile = $id_user;
             $complete_user->save();
 
         } catch (\Throwable $th) {

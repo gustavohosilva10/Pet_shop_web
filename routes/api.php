@@ -27,6 +27,6 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('store/petsUsers', 'Api\CompleteRegisterUserController@store');
     Route::get('show/{id}/address', 'Api\CompleteRegisterUserController@show');
     Route::patch('update/{id}/address', 'Api\CompleteRegisterUserController@update');
-    Route::post('store/saveProfilePicture', 'Api\CompleteRegisterUserController@saveProfilePicture');
+    /* Route::post('store/saveProfilePicture', 'Api\CompleteRegisterUserController@saveProfilePicture'); */
 });
 
