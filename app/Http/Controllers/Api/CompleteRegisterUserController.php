@@ -27,6 +27,7 @@ class CompleteRegisterUserController extends Controller
         try {
             $id_user = auth()->user()->id;
             $complete_user = new ProfilePicture();
+
             if ($request->file('image') == null) {
                 $name = "";
             }else{
