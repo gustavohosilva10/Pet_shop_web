@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\PetsUsers;
+use App\TypePets;
+use App\BreedPets;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\CreateCompleteRegisterUserRequest;
 use File;
@@ -48,6 +50,28 @@ class CompleteRegisterUserController extends Controller
 
         } catch (\Throwable $th) {
             Log::error($th);
+            throw $th;
+        }
+    }
+
+    public function listCategories(){
+        try {
+            
+            $list_categories = TypePets::all();
+
+            return json($list_categories);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function listBreed(){
+        try {
+
+            $list_breed = BreedPets::where('type',$type)->get();
+
+            return json($list_breed);
+        } catch (\Throwable $th) {
             throw $th;
         }
     }

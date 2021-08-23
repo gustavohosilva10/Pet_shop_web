@@ -31,7 +31,7 @@ class CompleteRegisterUserController extends Controller
                 $nome = "";
             }else{
             
-                if (!File::isDirectory('storage/profile-picture/'.$request->input('id_user'))) {
+                if (!File::isDirectory('storage/profile-picture/'.$request->input('id_user')) {
                     File::makeDirectory('storage/profile-picture/'.$request->input('id_user'));
                 }
 
